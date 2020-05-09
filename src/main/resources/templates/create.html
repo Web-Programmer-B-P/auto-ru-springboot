@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Размещение объявления</title>
+    <th:block th:replace="meta :: head-meta"/>
+    <script type="text/javascript" th:src="@{/js/create.js}"></script>
+</head>
+<body class="body advertisement-body">
+<div class="container form_data_main_container">
+    <h3 class="advertisement-container-title">Заполните данные об автомобиле</h3>
+    <form id="advertisement-form" th:object="${advertisement}" th:action="@{/create}" method="post"
+          enctype="multipart/form-data">
+        <div class="dropdown-container">
+            <div class='dropdown'>
+                <select id='transmission' th:field="*{car.transmission}">
+                    <option hidden th:value='|Механика|' th:text='|КПП|'></option>
+                    <option th:value='|Автомат|' th:text='|Автомат|'></option>
+                    <option th:value='|Механика|' th:text='|Механика|'></option>
+                    <option th:value='|Робот|' th:text='|Робот|'></option>
+                </select>
+            </div>
+            <div class='dropdown'>
+                <select id='wheel-drive' th:field="*{car.wheelDrive}">
+                    <option hidden th:value='|Передний|' th:text='|Привод|'></option>
+                    <option th:value='|Полный|' th:text='|Полный|'></option>
+                    <option th:value='|Передний|' th:text='|Передний|'></option>
+                    <option th:value='|Задний|' th:text='|Задний|'></option>
+                </select>
+            </div>
+            <div class='dropdown'>
+                <select id='handlebar' th:field="*{car.handlebar}">
+                    <option hidden th:value='|Правый|' th:text='|Руль|'></option>
+                    <option th:value='|Правый|' th:text='|Правый|'></option>
+                    <option th:value='|Левый|' th:text='|Левый|'></option>
+                </select>
+            </div>
+            <div class='dropdown'>
+                <select id='car-body' th:field="*{car.carBody}">
+                    <option hidden th:value='|Хэтчбек|' th:text='|Тип кузова|'></option>
+                    <option th:value='|Хэтчбек|' th:text='|Хэтчбек|'></option>
+                    <option th:value='|Универсал|' th:text='|Универсал|'></option>
+                    <option th:value='|Лифтбэк|' th:text='|Лифтбэк|'></option>
+                    <option th:value='|Купе|' th:text='|Купе|'></option>
+                    <option th:value='|Кабриолет|' th:text='|Кабриолет|'></option>
+                    <option th:value='|Родстер|' th:text='|Родстер|'></option>
+                    <option th:value='|Стретч|' th:text='|Стретч|'></option>
+                    <option th:value='|Внедорожник|' th:text='|Внедорожник|'></option>
+                    <option th:value='|Кроссовер|' th:text='|Кроссовер|'></option>
+                    <option th:value='|Фургон|' th:text='|Фургон|'></option>
+                </select>
+            </div>
+            <div class='dropdown fuel'>
+                <select id='fuel-type' th:field="*{car.engine.fuelType}">
+                    <option hidden th:value='|Безин|' th:text='|Тип двигателя|'></option>
+                    <option th:value='|Безин|' th:text='|Безин|'></option>
+                    <option th:value='|Дизель|' th:text='|Дизель|'></option>
+                    <option th:value='|Гибрид|' th:text='|Гибрид|'></option>
+                    <option th:value='|Электро|' th:text='|Электро|'></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group has-feedback year-of-issue">
+            <label for="year">Год выпуска: </label>
+            <label th:classappend="text-danger" th:errors="*{car.yearOfIssue}"></label>
+            <input type="date" name="year" id="year" th:field="*{car.yearOfIssue}">
+        </div>
+        <div class="form-group has-feedback image">
+            <label th:classappend="text-danger" th:if="${error}" th:text="${error}"></label>
+            <label for='image'>Загрузите фото вашего авто:</label>
+            <input type='file' id='image' name='image'><br>
+        </div>
+        <div class="form-group has-feedback name">
+            <label for="name">Название автомобиля:</label>
+            <label th:classappend="text-danger" th:errors="*{car.name}"></label>
+            <input type="text" name="name" class="form-control" id="name" th:field="*{car.name}">
+        </div>
+        <div class="form-group has-feedback color">
+            <label for="color">Цвет:</label>
+            <label th:classappend="text-danger" th:errors="*{car.color}"></label>
+            <input type="text" name="color" class="form-control" id="color" th:field="*{car.color}">
+        </div>
+        <div class="form-group has-feedback km-age">
+            <label for="km-age">Укажите пробег или оставьте поле пустым если авто новый:</label></br>
+            <label th:classappend="text-danger" th:errors="*{car.kmAge}"></label>
+            <input type="text" name="km-age" class="form-control" id="km-age" th:field="*{car.kmAge}">
+        </div>
+        <div class="form-group has-feedback price">
+            <label for="price">Цена:</label>
+            <label th:classappend="text-danger" th:errors="*{price}"></label>
+            <input type="text" name="price" class="form-control" id="price" th:value="*{price}">
+        </div>
+        <div class="form-group has-feedback horse-power">
+            <label for="horse-power">Л.с:</label>
+            <label th:classappend="text-danger" th:errors="*{car.engine.horsePower}"></label>
+            <input type="text" name="horse-power" class="form-control" id="horse-power"
+                   th:field="*{car.engine.horsePower}">
+        </div>
+        <div class="form-group has-feedback description">
+            <label>Описание:</label>
+            <label th:classappend="text-danger" th:errors="*{description}"></label>
+            <textarea rows="5" name="description" class="form-control" id="description"
+                      th:text="*{description}"></textarea>
+        </div>
+        <button type="button" id="save-advert" class="btn btn-success btn-block">Сохранить</button>
+    </form>
+</div>
+</body>
+</html>

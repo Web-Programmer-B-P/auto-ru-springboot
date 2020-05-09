@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главная страница</title>
+    <th:block th:replace="meta :: head-meta"/>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+</head>
+<body>
+<h3 class="title-body-sing-up">Список всех объявлений машин</h3>
+<div style="display: flex; justify-content: center">
+    <div id="last">
+        <a class="btn btn-primary" role="button">Показать все объявления за последний день</a>
+    </div>
+    <div id="but" style="margin: 0 10px">
+        <a th:href="@{/create}" class="btn btn-primary" role="button">Разместить объявление</a>
+    </div>
+    <div id="logout" style="margin: 0 10px">
+        <a th:href="@{/logout}" class="btn btn-primary" role="button">Выход</a>
+    </div>
+    <div id="all" style="margin-right: 10px">
+        <a class="btn btn-primary" role="button">Все</a>
+    </div>
+    <div class='dropdown'>
+        <select class="criterion">
+            <option disabled th:value='|xxxxx|' th:text='|Поиск по типу кузова|'></option>
+            <option th:value='|Хэтчбек|' th:text='|Хэтчбек|'></option>
+            <option th:value='|Универсал|' th:text='|Универсал|'></option>
+            <option th:value='|Лифтбэк|' th:text='|Лифтбэк|'></option>
+            <option th:value='|Купе|' th:text='|Купе|'></option>
+            <option th:value='|Кабриолет|' th:text='|Кабриолет|'></option>
+            <option th:value='|Родстер|' th:text='|Родстер|'></option>
+            <option th:value='|Стретч|' th:text='|Стретч|'></option>
+            <option th:value='|Внедорожник|' th:text='|Внедорожник|'></option>
+            <option th:value='|Кроссовер|' th:text='|Кроссовер|'></option>
+            <option th:value='|Фургон|' th:text='|Фургон|'></option>
+        </select>
+    </div>
+</div>
+<div class="all-items">
+</div>
+</body>
+</html>

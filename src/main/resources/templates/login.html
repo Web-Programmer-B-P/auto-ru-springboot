@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница авторизации</title>
+    <th:block th:replace="meta :: head-meta"/>
+</head>
+<body>
+<div class='main_container'>
+    <div class='block_form'>
+        <h1 class='heading_row'>Sign In or Sing Up</h1>
+        <form class="authorization-form" th:action="@{/authenticateTheUser}" th:method="post">
+            <div class='common_input-box'>
+                <div class="form-group has-feedback email-in">
+                    <div th:if="${param.error}">
+                        <label class="text-danger" style="font-size: 17px;">
+                            Не правильный логин или пароль!
+                        </label>
+                    </div>
+                    <div th:if="${param.logout != null}">
+                        <label class="text-success" style="font-size: 17px;">
+                            Вы успешно разлогинены!
+                        </label>
+                    </div>
+                    <p class='common_label'>Name:</p>
+                    <input type="text" name="username" id="login" class='form-control validate_input'>
+                </div>
+                <div class="form-group has-feedback pass-in">
+                    <p class='common_label'>Password:</p>
+                    <input type="password" name="password" id="pwd" class='form-control validate_input'>
+                </div>
+                <input type="submit" class="sing_in_page" value="Sign In">
+            </div>
+            <p class='sing-up-question'>Not a member? <a href="/sing-up" class='color_link'>Sing Up now</a></p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

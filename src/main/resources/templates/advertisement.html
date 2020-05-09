@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница авто</title>
+    <th:block th:replace="meta :: head-meta"/>
+    <script type="text/javascript" th:src="@{/js/car_page.js}"></script>
+</head>
+<body>
+<div class="wrap_block" th:object="${advertisement}">
+    <div class="advert-id" hidden th:text="*{id}"></div>
+    <div class="box_title">
+        <h1 class="name_car" th:text="*{car.name}"></h1>
+        <span class="car-price" th:text="|*{price} р.|"></span>
+    </div>
+    <div class="box_content">
+        <div class="box_info">
+            <div class="container_content_and-button">
+                <div class="car_info">
+                    <div class="row_info">
+                        <label class="cell_label">Год выпуска</label>
+                        <p class="cell_content year" th:text="*{car.yearOfIssue}"></p>
+                    </div>
+                    <div class="row_info">
+                        <label class="cell_label">Пробег</label>
+                        <p class="cell_content km-age"
+                           th:text="*{!car.kmAge.isEmpty()} ? *{car.kmAge} + ' Кm': 'Новый'"></p>
+                    </div>
+                    <div class="row_info">
+                        <label class="cell_label">Кузов</label>
+                        <p class="cell_content car-body" th:text="*{car.carBody}"></p>
+                    </div>
+                    <div class="row_info">
+                        <label class="cell_label">Цвет</label>
+                        <p class="cell_content car-color" th:text="*{car.color}"></p>
+                    </div>
+                    <div class="row_info">
+                        <label class="cell_label">Двигатель</label>
+                        <p class="cell_content fuel-type-horse-power"
+                           th:text="|*{car.engine.horsePower} л.с / *{car.engine.fuelType}|"></p>
+                    </div>
+                    <div class="row_info">
+                        <label class="cell_label">Коробка</label>
+                        <p class="cell_content transmiss" th:text="*{car.transmission}"></p>
+                    </div>
+                    <div class="row_info">
+                        <label class="cell_label">Привод</label>
+                        <p class="cell_content wheel-drive" th:text="*{car.wheelDrive}"></p>
+                    </div>
+                    <div class="row_info">
+                        <label class="cell_label">Руль</label>
+                        <p class="cell_content handlebar" th:text="*{car.handlebar}"></p>
+                    </div>
+                    <div class="row_info">
+                        <label class="cell_label">Статус</label>
+                        <p class="cell_content sale-status"
+                           th:text="*{saleStatus == true} ? 'Продан' : 'В продаже'"></p>
+                    </div>
+                </div>
+                <div class="box_phone_btn">
+                    <input type="button" id="label-ph" value="Показать номер телефона" class="show_phone"/>
+                    <script th:inline="javascript">
+                        $('#label-ph').on('click', function () {
+                            $('.show_phone').val([[${phone}]]);
+                        });
+                    </script>
+                </div>
+            </div>
+            <img th:attr="src=@{/image(id=${advertisement.id})}" th:onerror="src='css/empty.jpg'" class='car_image'>
+        </div>
+        <div class="car_description">
+            <h3 class="title_description">Описание автомобиля</h3>
+            <p class="text_description car-description" th:text="*{description}"></p>
+        </div>
+
+        <div class="box_buttons_footer">
+            <div hidden class="show_checkbox" th:if="${show == true}" th:text="${show}">
+            </div>
+            <div class="buttons_footer" id="back-home">
+                <input type="button" value="Вернутся на главную" class="button_back-home"/>
+            </div>
+            <div class="box_checkbox">
+                <input type="checkbox" class="flag-sale" th:if="*{saleStatus}" checked/>
+                <input type="checkbox" class="flag-sale" th:if="*{!saleStatus}"/>
+                <label class="label_sale">Отметить как продан</label>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
